@@ -23,7 +23,7 @@ overflow:hidden;
 transition:1s;
 }
 
-/* LOGIN CARD */
+/* LOGIN */
 .container{
 background: rgba(255,255,255,0.15);
 backdrop-filter: blur(15px);
@@ -31,20 +31,10 @@ padding:40px;
 border-radius:20px;
 text-align:center;
 box-shadow:0 10px 40px rgba(0,0,0,0.3);
-animation:fadeIn 1s;
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(30px);}
-to{opacity:1;}
-}
+h2{color:#fff;}
 
-h2{
-color:#fff;
-margin-bottom:10px;
-}
-
-/* INPUT */
 input{
 padding:12px;
 border:none;
@@ -55,7 +45,6 @@ font-size:18px;
 outline:none;
 }
 
-/* BUTTON */
 button{
 margin-top:15px;
 padding:12px 25px;
@@ -64,25 +53,20 @@ border-radius:10px;
 background:#ff4081;
 color:#fff;
 cursor:pointer;
-font-size:16px;
 transition:0.3s;
 }
 
-button:hover{
-transform:scale(1.1);
-}
+button:hover{transform:scale(1.1);}
 
-/* MAIN */
 #main{
 display:none;
 text-align:center;
 color:#fff;
-animation:fadeIn 1.5s;
 }
 
 h1{
-font-size:50px;
-animation:glow 2s infinite alternate;
+font-size:40px;
+animation: glow 2s infinite alternate;
 }
 
 @keyframes glow{
@@ -96,60 +80,39 @@ position:fixed;
 bottom:0;
 right:20px;
 background:#ff4081;
-padding:10px 15px;
+padding:10px;
 border-radius:10px;
 animation:floatUp 5s linear forwards;
-font-size:14px;
 }
 
 @keyframes floatUp{
-0%{transform:translateY(0);opacity:1;}
-100%{transform:translateY(-400px);opacity:0;}
-}
-
-/* CONFETTI DOTS */
-.confetti{
-position:fixed;
-width:8px;
-height:8px;
-background:yellow;
-top:0;
-animation:fall linear infinite;
-}
-
-@keyframes fall{
 0%{transform:translateY(0);}
-100%{transform:translateY(100vh);}
-}
-
-/* ERROR */
-#error{
-color:yellow;
-margin-top:10px;
+100%{transform:translateY(-300px);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
 <div class="container" id="login">
-<h2>Enter Secret Name 🔐</h2>
+<h2>Enter Secret 🔐</h2>
 <input type="text" id="input" maxlength="4">
 <br>
 <button onclick="check()">Enter</button>
-<p id="error"></p>
+<p id="error" style="color:yellow;"></p>
 </div>
 
-<!-- MAIN -->
 <div id="main">
 <h1>🎉 Happy Birthday LORD 🎉</h1>
-<h2>🔥 Get Ready for Surprise 🔥</h2>
 </div>
+
+<!-- AUDIO -->
+<audio id="audio1" src="birthday.mp3"></audio>
+<audio id="audio2" src="birthday.mp3"></audio>
 
 <script>
 
-/* ONLY ALLOW L O R D */
+/* ONLY LORD */
 let input=document.getElementById("input");
 input.addEventListener("input",()=>{
 input.value=input.value.replace(/[^lordLORD]/g,'');
@@ -164,43 +127,38 @@ if(val==="lord"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="block";
 
-/* CHANGE FULL BACKGROUND IMAGE */
-document.body.style.background=
-"url('20220529181654_IMG_0815.JPG') center/cover no-repeat";
+/* FIXED BACKGROUND */
+document.body.style.backgroundImage="url('20220529181654_IMG_0815.JPG')";
+document.body.style.backgroundSize="cover";
+document.body.style.backgroundPosition="center";
+document.body.style.backgroundRepeat="no-repeat";
 
-/* PLAY VOICES */
-speak("Happy Birthday Pori Urundai");
-setTimeout(()=>{
-speak("Happy Birthday Lord");
-},2500);
+/* MOBILE AUDIO FIX */
+let a1=document.getElementById("audio1");
+let a2=document.getElementById("audio2");
 
-/* START EFFECTS */
-startWishes();
-startConfetti();
+a1.play().then(()=>{
+setTimeout(()=>{ a2.play(); },2000);
+}).catch(()=>{
+alert("Tap screen once for sound 🔊");
+});
+
+/* FLOATING */
+setInterval(createWish,1500);
 
 }else{
 document.getElementById("error").innerText="Only LORD allowed!";
 }
 }
 
-/* SPEECH FUNCTION */
-function speak(text){
-let speech=new SpeechSynthesisUtterance(text);
-speech.pitch=1;
-speech.rate=0.9;
-speechSynthesis.speak(speech);
-}
-
-/* FLOATING WISHES */
-function startWishes(){
-setInterval(()=>{
+/* WISH */
+function createWish(){
 let msgs=[
-"Happy Birthday Bro 🎉",
-"Happy Birthday Lord 🎂",
-"Happy Birthday Anna 💖",
-"Party Time 🥳",
-"Enjoy Your Day 🔥",
-"Stay Blessed 🎁"
+"Happy Birthday 🎉",
+"Bro 🎂",
+"Anna 💖",
+"Enjoy 🥳",
+"Stay Blessed 🔥"
 ];
 
 let div=document.createElement("div");
@@ -209,24 +167,6 @@ div.innerText=msgs[Math.floor(Math.random()*msgs.length)];
 
 document.body.appendChild(div);
 setTimeout(()=>div.remove(),5000);
-
-},1200);
-}
-
-/* CONFETTI */
-function startConfetti(){
-setInterval(()=>{
-let conf=document.createElement("div");
-conf.className="confetti";
-conf.style.left=Math.random()*100+"vw";
-conf.style.background=
-["red","yellow","blue","green","pink"][Math.floor(Math.random()*5)];
-conf.style.animationDuration=(Math.random()*3+2)+"s";
-
-document.body.appendChild(conf);
-setTimeout(()=>conf.remove(),5000);
-
-},200);
 }
 
 </script>
