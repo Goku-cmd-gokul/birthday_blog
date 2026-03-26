@@ -78,13 +78,10 @@ animation:float 5s linear forwards;
 
 <div id="main">
 <h1>🎉 Happy Birthday LORD 🎉</h1>
-<br>
-<button onclick="playAudio()">🔊 Tap for Sound</button>
 </div>
 
-<!-- AUDIO FILES -->
-<audio id="lordAudio" src="lord.mp3"></audio>
-<audio id="poriAudio" src="pori.mp3"></audio>
+<!-- ✅ ONLY PORI AUDIO -->
+<audio id="bgMusic" src="pori.mp3" autoplay muted loop></audio>
 
 <script>
 
@@ -103,7 +100,7 @@ if(val==="lord"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="block";
 
-/* BACKGROUND FIX */
+/* BACKGROUND IMAGE */
 document.body.style.backgroundImage="url('20220529181654_IMG_0815.JPG')";
 document.body.style.backgroundSize="cover";
 document.body.style.backgroundPosition="center";
@@ -117,16 +114,18 @@ document.getElementById("error").innerText="Only LORD allowed!";
 }
 }
 
-/* PLAY AUDIO (USER CLICK REQUIRED) */
-function playAudio(){
-let lord=document.getElementById("lordAudio");
-let pori=document.getElementById("poriAudio");
+/* MOBILE AUTOPLAY FIX */
+document.addEventListener("click", enableSound);
+document.addEventListener("touchstart", enableSound);
 
-lord.play();
+function enableSound(){
+let music = document.getElementById("bgMusic");
 
-setTimeout(()=>{
-pori.play();
-},2500);
+music.muted = false;
+music.play();
+
+document.removeEventListener("click", enableSound);
+document.removeEventListener("touchstart", enableSound);
 }
 
 /* WISHES */
