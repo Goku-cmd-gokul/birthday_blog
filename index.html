@@ -18,6 +18,7 @@ transition:1s;
 overflow:hidden;
 }
 
+/* LOGIN */
 .container{
 background:rgba(255,255,255,0.15);
 backdrop-filter:blur(15px);
@@ -44,12 +45,19 @@ color:white;
 cursor:pointer;
 }
 
+/* MAIN */
 #main{
 display:none;
 text-align:center;
 color:white;
 }
 
+h1{
+font-size:40px;
+text-shadow:0 0 20px #fff;
+}
+
+/* FLOATING WISH */
 .wish{
 position:fixed;
 bottom:0;
@@ -68,6 +76,7 @@ animation:float 5s linear forwards;
 
 <body>
 
+<!-- LOGIN -->
 <div class="container" id="login">
 <h2>Enter Secret 🔐</h2>
 <input type="text" id="input" maxlength="4">
@@ -76,12 +85,16 @@ animation:float 5s linear forwards;
 <p id="error" style="color:yellow;"></p>
 </div>
 
+<!-- MAIN -->
 <div id="main">
 <h1>🎉 Happy Birthday LORD 🎉</h1>
 </div>
 
-<!-- ✅ ONLY PORI AUDIO -->
-<audio id="bgMusic" src="pori.mp3" autoplay muted loop></audio>
+<!-- ✅ FIXED AUDIO -->
+<audio id="bgMusic" preload="auto" loop>
+  <source src="pori.mp3" type="audio/mpeg">
+  Your browser does not support audio
+</audio>
 
 <script>
 
@@ -91,7 +104,7 @@ input.addEventListener("input",()=>{
 input.value=input.value.replace(/[^lordLORD]/g,'');
 });
 
-/* CHECK */
+/* CHECK LOGIN */
 function check(){
 let val=input.value.toLowerCase();
 
@@ -100,7 +113,7 @@ if(val==="lord"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="block";
 
-/* BACKGROUND IMAGE */
+/* BACKGROUND IMAGE FIX */
 document.body.style.backgroundImage="url('20220529181654_IMG_0815.JPG')";
 document.body.style.backgroundSize="cover";
 document.body.style.backgroundPosition="center";
@@ -109,26 +122,35 @@ document.body.style.backgroundRepeat="no-repeat";
 /* FLOATING WISHES */
 setInterval(createWish,1500);
 
+/* PLAY AUDIO (IMPORTANT MOBILE FIX) */
+playMusic();
+
 }else{
 document.getElementById("error").innerText="Only LORD allowed!";
 }
 }
 
-/* MOBILE AUTOPLAY FIX */
-document.addEventListener("click", enableSound);
-document.addEventListener("touchstart", enableSound);
-
-function enableSound(){
+/* ✅ AUDIO FUNCTION (FIXED) */
+function playMusic(){
 let music = document.getElementById("bgMusic");
 
-music.muted = false;
-music.play();
+/* try play */
+music.play().catch(() => {
+    console.log("Waiting for user interaction...");
+});
 
-document.removeEventListener("click", enableSound);
-document.removeEventListener("touchstart", enableSound);
+/* enable on first touch */
+document.addEventListener("click", startAudioOnce);
+document.addEventListener("touchstart", startAudioOnce);
+
+function startAudioOnce(){
+    music.play();
+    document.removeEventListener("click", startAudioOnce);
+    document.removeEventListener("touchstart", startAudioOnce);
+}
 }
 
-/* WISHES */
+/* FLOATING WISH */
 function createWish(){
 let msgs=[
 "Happy Birthday 🎉",
