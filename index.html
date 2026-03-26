@@ -18,6 +18,7 @@ transition:1s;
 overflow:hidden;
 }
 
+/* LOGIN */
 .container{
 background:rgba(255,255,255,0.15);
 backdrop-filter:blur(15px);
@@ -26,6 +27,7 @@ border-radius:20px;
 text-align:center;
 }
 
+/* INPUT */
 input{
 padding:10px;
 border:none;
@@ -34,6 +36,7 @@ text-align:center;
 letter-spacing:5px;
 }
 
+/* BUTTON */
 button{
 margin-top:10px;
 padding:10px 20px;
@@ -44,12 +47,19 @@ color:white;
 cursor:pointer;
 }
 
+/* MAIN CENTER ALIGN */
 #main{
 display:none;
 text-align:center;
 color:white;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:100%;
 }
 
+/* FLOATING WISH */
 .wish{
 position:fixed;
 bottom:0;
@@ -79,10 +89,10 @@ animation:float 5s linear forwards;
 
 <!-- MAIN -->
 <div id="main">
-<h1 style="background-color: black;">🎉 Happy Birthday Pori Urundai 🎉</h1>
+<h1 style="background-color:black;">🎉 Happy Birthday Pori Urundai 🎉</h1>
 </div>
 
-<!-- ✅ LOOP AUDIO -->
+<!-- AUDIO -->
 <audio id="bgMusic" loop>
   <source src="pori.mp3" type="audio/mpeg">
 </audio>
@@ -95,7 +105,7 @@ input.addEventListener("input",()=>{
 input.value=input.value.replace(/[^lordLORD]/g,'');
 });
 
-/* ✅ BUTTON CLICK */
+/* BUTTON CLICK */
 function check(){
 let val=input.value.toLowerCase();
 
@@ -104,13 +114,13 @@ if(val==="lord"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="block";
 
-/* BACKGROUND IMAGE */
-document.body.style.backgroundImage="url('20220529181654_IMG_0815.JPG')";
-document.body.style.backgroundSize="cover";
-document.body.style.backgroundPosition="center";
-document.body.style.backgroundRepeat="no-repeat";
+/* ✅ PERFECT CENTER BACKGROUND FIX */
+document.body.style.background = `
+linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+url('20220529181654_IMG_0815.JPG') no-repeat center center / cover
+`;
 
-/* ✅ PLAY LOOP AUDIO */
+/* AUDIO LOOP */
 let music = document.getElementById("bgMusic");
 music.currentTime = 0;
 music.loop = true;
@@ -129,7 +139,7 @@ function createWish(){
 let msgs=[
 "Happy Birthday 🎉",
 "Lord 🎂",
-"Anna 💖",
+"Happy Birthday Pori Urundai",
 "Enjoy 🥳",
 "Stay Blessed 🔥"
 ];
