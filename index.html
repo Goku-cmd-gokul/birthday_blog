@@ -79,11 +79,11 @@ animation:float 5s linear forwards;
 
 <!-- MAIN -->
 <div id="main">
-<h1>🎉 Happy Birthday Pori Urundai 🎉</h1>
+<h1 style="background-color: black;">🎉 Happy Birthday Pori Urundai 🎉</h1>
 </div>
 
-<!-- ✅ AUDIO -->
-<audio id="bgMusic">
+<!-- ✅ LOOP AUDIO -->
+<audio id="bgMusic" loop>
   <source src="pori.mp3" type="audio/mpeg">
 </audio>
 
@@ -95,7 +95,7 @@ input.addEventListener("input",()=>{
 input.value=input.value.replace(/[^lordLORD]/g,'');
 });
 
-/* ✅ BUTTON CLICK = AUDIO PLAY */
+/* ✅ BUTTON CLICK */
 function check(){
 let val=input.value.toLowerCase();
 
@@ -110,9 +110,10 @@ document.body.style.backgroundSize="cover";
 document.body.style.backgroundPosition="center";
 document.body.style.backgroundRepeat="no-repeat";
 
-/* ✅ PLAY AUDIO HERE (WORKS IN MOBILE) */
+/* ✅ PLAY LOOP AUDIO */
 let music = document.getElementById("bgMusic");
 music.currentTime = 0;
+music.loop = true;
 music.play();
 
 /* FLOATING WISHES */
@@ -123,7 +124,7 @@ document.getElementById("error").innerText="Only LORD allowed!";
 }
 }
 
-/* FLOATING WISH */
+/* WISHES */
 function createWish(){
 let msgs=[
 "Happy Birthday 🎉",
