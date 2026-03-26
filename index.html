@@ -6,75 +6,50 @@
 <title>Birthday Surprise 🎉</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
 
 body{
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-overflow:hidden;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
 transition:1s;
+overflow:hidden;
 }
 
-/* LOGIN */
 .container{
-background: rgba(255,255,255,0.15);
-backdrop-filter: blur(15px);
-padding:40px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(15px);
+padding:30px;
 border-radius:20px;
 text-align:center;
-box-shadow:0 10px 40px rgba(0,0,0,0.3);
 }
 
-h2{color:#fff;}
-
 input{
-padding:12px;
+padding:10px;
 border:none;
 border-radius:10px;
 text-align:center;
 letter-spacing:5px;
-font-size:18px;
-outline:none;
 }
 
 button{
-margin-top:15px;
-padding:12px 25px;
+margin-top:10px;
+padding:10px 20px;
 border:none;
 border-radius:10px;
 background:#ff4081;
-color:#fff;
+color:white;
 cursor:pointer;
-transition:0.3s;
 }
-
-button:hover{transform:scale(1.1);}
 
 #main{
 display:none;
 text-align:center;
-color:#fff;
+color:white;
 }
 
-h1{
-font-size:40px;
-animation: glow 2s infinite alternate;
-}
-
-@keyframes glow{
-from{text-shadow:0 0 10px #fff;}
-to{text-shadow:0 0 40px #ff4081;}
-}
-
-/* FLOATING WISH */
 .wish{
 position:fixed;
 bottom:0;
@@ -82,11 +57,10 @@ right:20px;
 background:#ff4081;
 padding:10px;
 border-radius:10px;
-animation:floatUp 5s linear forwards;
+animation:float 5s linear forwards;
 }
 
-@keyframes floatUp{
-0%{transform:translateY(0);}
+@keyframes float{
 100%{transform:translateY(-300px);opacity:0;}
 }
 </style>
@@ -104,15 +78,17 @@ animation:floatUp 5s linear forwards;
 
 <div id="main">
 <h1>🎉 Happy Birthday LORD 🎉</h1>
+<br>
+<button onclick="playAudio()">🔊 Tap for Sound</button>
 </div>
 
-<!-- AUDIO -->
-<audio id="audio1" src="birthday.mp3"></audio>
-<audio id="audio2" src="birthday.mp3"></audio>
+<!-- AUDIO FILES -->
+<audio id="lordAudio" src="lord.mp3"></audio>
+<audio id="poriAudio" src="pori.mp3"></audio>
 
 <script>
 
-/* ONLY LORD */
+/* ONLY LORD INPUT */
 let input=document.getElementById("input");
 input.addEventListener("input",()=>{
 input.value=input.value.replace(/[^lordLORD]/g,'');
@@ -127,23 +103,13 @@ if(val==="lord"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="block";
 
-/* FIXED BACKGROUND */
+/* BACKGROUND FIX */
 document.body.style.backgroundImage="url('20220529181654_IMG_0815.JPG')";
 document.body.style.backgroundSize="cover";
 document.body.style.backgroundPosition="center";
 document.body.style.backgroundRepeat="no-repeat";
 
-/* MOBILE AUDIO FIX */
-let a1=document.getElementById("audio1");
-let a2=document.getElementById("audio2");
-
-a1.play().then(()=>{
-setTimeout(()=>{ a2.play(); },2000);
-}).catch(()=>{
-alert("Tap screen once for sound 🔊");
-});
-
-/* FLOATING */
+/* FLOATING WISHES */
 setInterval(createWish,1500);
 
 }else{
@@ -151,11 +117,23 @@ document.getElementById("error").innerText="Only LORD allowed!";
 }
 }
 
-/* WISH */
+/* PLAY AUDIO (USER CLICK REQUIRED) */
+function playAudio(){
+let lord=document.getElementById("lordAudio");
+let pori=document.getElementById("poriAudio");
+
+lord.play();
+
+setTimeout(()=>{
+pori.play();
+},2500);
+}
+
+/* WISHES */
 function createWish(){
 let msgs=[
 "Happy Birthday 🎉",
-"Bro 🎂",
+"Lord 🎂",
 "Anna 💖",
 "Enjoy 🥳",
 "Stay Blessed 🔥"
